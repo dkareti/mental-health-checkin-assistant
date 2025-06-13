@@ -8,7 +8,7 @@ This is the folder structure for this project:
     mental-health-checkin-assistant/
     │
     ├── app/
-    │   ├── __init__.py
+    │   ├── __init__.py             # blank file to generate the python environment
     │   ├── webhook.py              # Flask app (webhook logic)
     │   ├── sentiment.py            # Sentiment analysis utilities (VADER setup, analysis)
     │   └── db.py                   # SQLite logging and summary functions
@@ -23,5 +23,15 @@ This is the folder structure for this project:
     └── .gitignore                  # Ignore DB files, virtual env, etc.
 
 To run locally
-`pip install -r requirements.txt
-python3 -m app.webhook
+`pip install -r requirements.txt`
+`python3 -m app.webhook`
+
+and run (IN ANOTHER TERMINAL)`ngrok http PORT_NUMBER`
+
+Test the functionality of the mental-health AI assistant by typing in the Dialogflow Simulator (located in the right hand side of the dialogflow console)
+You can type:
+Today is a good day. I feel encouraged!
+
+I feel stressed.
+
+I am pretty downhearted.
