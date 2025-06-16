@@ -35,3 +35,5 @@ Today is a good day. I feel encouraged!
 I feel stressed.
 
 I am pretty downhearted.
+
+*Note that every time the interface runs, you have to re-copy the fullfillment url in dialog flow

@@ -17,11 +17,12 @@ def webhook():
         log_mood(user_input, sentiment, score)
 
         if sentiment == "positive":
-            response_text = "I'm glad to hear you're feeling good today! 😊"
+            response_text = "I'm glad to hear you're feeling good today! "
         elif sentiment == "negative":
             response_text = "I'm sorry to hear that. Want to talk more about it or try a breathing exercise?"
         else:
-            response_text = "Thanks for checking in. I hope the rest of your day goes well."
+            response_text = "Thanks for checking in. I hope the rest of your day goes well. Negative emotions can often be remedied by focusing" \
+            "on the good aspects, even though they sight seem small, of your life."
 
         return jsonify({"fulfillmentText": response_text})
 
