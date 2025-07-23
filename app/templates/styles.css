@@ -1,3 +1,9 @@
+:root {
+  --navy: #20539a;
+  --bright-green: #59f306;
+  --cheery-color: #fff41d;
+}
+
 body {
   font-family: Arial, sans-serif;
   max-width: 600px;
@@ -5,10 +11,14 @@ body {
 }
 
 #chatBox {
-  border: 1px solid #ccc;
-  padding: 1rem;
+  border: 1px solid blue;
   min-height: 300px;
   margin-bottom: 1rem;
+  background-color: white;
+  padding: 2rem;
+  border-radius: 5px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  text-align: center;
 }
 
 #userInput {
@@ -21,4 +31,37 @@ body {
 
 .user {
   color: blue;
+}
+
+.info-box {
+  background-color: white;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  margin: 2rem auto;
+  max-width: 600px;
+  font-family: Arial, sans-serif;
+  color: #333;
+  line-height: 1.6;
+}
+
+.info-box h3 {
+  margin-top: 0;
+  color: #2b6cb0; /* soft blue */
+}
+
+.btn{
+  display: block;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  color: black;
+  background-color: var(--navy);
+}
+
+.btn:hover {
+  background-color: var(--cheery-color);
+}
+
+.btn:active {
+  background-color: var(--bright-green)
 }

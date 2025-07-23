@@ -12,10 +12,17 @@ from pathlib import Path
 app = Flask(__name__)
 init_db()
 
-# Define path to outer .env file
+#### ++++++++++++
+####  Define path to outer .env file
+####
+#### Find the .env file in the parent directory
+#### Then the environment is loaded
+####
 env_path = Path(__file__).resolve().parents[1] / ".env"
 load_dotenv(dotenv_path=env_path)
 
+#### ++++++++++++++++++++++++++++++++++++++++++++++++
+#### Get DIALOGFLOW auth details
 key_path = os.getenv("DIALOGFLOW_KEY_PATH")
 project_id = os.getenv("PROJECT_MHA_ID")
 
@@ -24,6 +31,7 @@ if not key_path or not project_id:
 
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = key_path
 PROJECT_ID = project_id
+#### ---------------------------------------------------
 
 @app.route("/", methods=["GET"])
 def home():
@@ -36,16 +44,24 @@ def webhook():
     user_input = req.get("queryResult", {}).get("queryText", "")
 
     if intent == "DailyMoodCheckIn":
-        sentiment, score = analyze_sentiment(user_input)
-        log_mood(user_input, sentiment, score)
+        result = analyze_sentiment(user_input)
+        emotion = result["emotion"]
+        tag = result["tag"]
 
-        if sentiment == "positive":
-            response_text = "I'm glad to hear you're feeling good today! "
-        elif sentiment == "negative":
-            response_text = "I'm sorry to hear that. Want to talk more about it or try a breathing exercise?"
+        #log the data into the database
+        log_mood(user_input, emotion, result["compound"])
+
+        if emotion == "positive":
+            response_text = f"I'm really glad to hear you're feeling {tag} today."
+        elif emotion == "negative":
+            if tag == "anxious":
+                response_text = "It sounds like you're feeling anxious. Would a calming exercise help?"
+            elif tag == "burned out":
+                response_text = "Feeling burned out is tough. Want to talk about what's draining you?"
+            else:
+                response_text = "I'm here for you. Would it help to talk more or try a reflection activity?"
         else:
-            response_text = "Thanks for checking in. I hope the rest of your day goes well. Negative emotions can often be remedied by focusing" \
-            "on the good aspects, even though they sight seem small, of your life."
+            response_text = "Thanks for sharing that. Sometimes it\’s hard to describe how we feel, and that\’s okay."
 
         return jsonify({"fulfillmentText": response_text})
 
