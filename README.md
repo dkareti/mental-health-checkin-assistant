@@ -6,22 +6,29 @@ Note: If the assistant is to be deployed on heroku, use the `Procfile`
 
 This is the folder structure for this project:
     mental-health-checkin-assistant/
-    │
-    ├── app/
-    │   ├── __init__.py             # blank file to generate the python environment
-    │   ├── webhook.py              # Flask app (webhook logic)
-    │   ├── sentiment.py            # Sentiment analysis utilities (VADER setup, analysis)
-    │   └── db.py                   # SQLite logging and summary functions
-    │
-    ├── data/
-    │   └── mood_logs.db            # (Optional) Pre-filled example DB (if not .gitignored)
-    │
-    ├── requirements.txt            # Python dependencies
-    ├── runtime.txt                 # Optional (e.g., python-3.10 for Heroku)
-    ├── Procfile                    # For deployment (e.g., on Heroku)
-    ├── README.md                   # Project overview and usage instructions
-    └── .gitignore                  # Ignore DB files, virtual env, etc.
+    1. app/
+    1a. __init__.py             # blank file to generate the python environment
+    1b.  webhook.py              # Flask app (webhook logic)
+    1c. sentiment.py            # Sentiment analysis utilities (VADER setup, analysis)
+    1d. db.py                   # SQLite logging and summary functions
+    
+    2. data/
+    2a. mood_logs.db            # (Optional) Pre-filled example DB (if not .gitignored)
+    
+    3. secrets
+    3a. the dialog flow service key
+    
+    4. requirements.txt            # Python dependencies
 
+    
+    5. README.md                   # Project overview and usage instructions
+
+    6. .env
+    
+    6. .gitignore                  # Ignore DB files, virtual env, etc.
+
+Before running any of the commands:
+Run `conda activate mental-health-agent`
 To run locally
 `pip install -r requirements.txt`
 `python3 -m app.webhook`
