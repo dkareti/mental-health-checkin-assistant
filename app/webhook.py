@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 import os
 from app.sentiment import analyze_sentiment
 from app.db import init_db, log_mood, get_weekly_summary
@@ -24,6 +24,10 @@ if not key_path or not project_id:
 
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = key_path
 PROJECT_ID = project_id
+
+@app.route("/", methods=["GET"])
+def home():
+    return render_template("index.html")
 
 @app.route("/webhook", methods=["POST"])
 def webhook():

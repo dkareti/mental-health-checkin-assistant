@@ -6,6 +6,7 @@ Note: If the assistant is to be deployed on heroku, use the `Procfile`
 
 This is the folder structure for this project:
     mental-health-checkin-assistant/
+
     1. app/
     1a. __init__.py             # blank file to generate the python environment
     1b.  webhook.py              # Flask app (webhook logic)
@@ -27,8 +28,7 @@ This is the folder structure for this project:
     
     6. .gitignore                  # Ignore DB files, virtual env, etc.
 
-Before running any of the commands:
-Run `conda activate mental-health-agent`
+
 To run locally
 `pip install -r requirements.txt`
 `python3 -m app.webhook`
