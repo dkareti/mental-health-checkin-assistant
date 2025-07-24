@@ -40,30 +40,56 @@ def home():
 @app.route("/webhook", methods=["POST"])
 def webhook():
     req = request.get_json(force=True)
+
     intent = req.get("queryResult", {}).get("intent", {}).get("displayName", "")
     user_input = req.get("queryResult", {}).get("queryText", "")
+    parameters = req.get("queryResult", {}).get("parameters", {})
 
     if intent == "DailyMoodCheckIn":
-        result = analyze_sentiment(user_input)
-        emotion = result["emotion"]
-        tag = result["tag"]
+        feeling = parameters.get("feeling")
 
-        #log the data into the database
-        log_mood(user_input, emotion, result["compound"])
+        if feeling:
+            # If entity exists, skip NLTK and use entity directly
+            tag = feeling.lower()
+            emotion = "positive" if tag in ["happy", "calm", "content"] else "negative"
 
-        if emotion == "positive":
-            response_text = f"I'm really glad to hear you're feeling {tag} today."
-        elif emotion == "negative":
-            if tag == "anxious":
-                response_text = "It sounds like you're feeling anxious. Would a calming exercise help?"
+            # Optional: log it with dummy compound score for uniformity
+            log_mood(user_input, emotion, compound=0.0)
+
+            if emotion == "positive":
+                response_text = f"I'm really glad to hear you're feeling {tag} today."
+            elif tag == "anxious":
+                response_text = "It sounds like you're feeling anxious. Would a calming exercise help? " \
+                "I provided a link to ChatGPT! Feel free to find calming exercises there!"
             elif tag == "burned out":
-                response_text = "Feeling burned out is tough. Want to talk about what's draining you?"
+                response_text = "Feeling burned out is tough. Want to talk about what's draining you?" \
+                "I've included a link to ChatGPT below, so you can continue this conversation! "
             else:
-                response_text = "I'm here for you. Would it help to talk more or try a reflection activity?"
+                response_text = f"Thanks for sharing that you're feeling {tag}. I'm here to support you." \
+                "If you'd like to keep the conversation going, the link below directs you to ChatGPT!"
         else:
-            response_text = "Thanks for sharing that. Sometimes it\’s hard to describe how we feel, and that\’s okay."
+            result = analyze_sentiment(user_input)
+            emotion = result["emotion"]
+            tag = result["tag"]
 
-        return jsonify({"fulfillmentText": response_text})
+            #log the data into the database
+            log_mood(user_input, emotion, result["compound"])
+
+            if emotion == "positive":
+                response_text = f"I'm really glad to hear you're feeling {tag} today."
+            elif emotion == "negative":
+                if tag == "anxious":
+                    response_text = "It sounds like you're feeling anxious. Would a calming exercise help?"
+                elif tag == "burned out":
+                    response_text = "Feeling burned out is tough. Want to talk about what's draining you?"
+                else:
+                    response_text = "Thanks for sharing that. Sometimes it\’s hard to describe how we feel, and that’s okay. " \
+                    "If you'd like to talk more or explore how you're feeling, ChatGPT is linked below to help."
+                 
+            else:
+                response_text = "Thanks for sharing that. Sometimes it\’s hard to describe how we feel, and that\’s okay."
+
+            return jsonify({"fulfillmentText": response_text})
 
     elif intent == "WeeklySummary":
         summary = get_weekly_summary()
