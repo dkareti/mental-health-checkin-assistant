@@ -45,13 +45,25 @@ def webhook():
     user_input = req.get("queryResult", {}).get("queryText", "")
     parameters = req.get("queryResult", {}).get("parameters", {})
 
+    #### ++++++++++++++++++++++++++++++++++++++++++++
+    #### Debugging the entity functionality of my agent
+    print(f'Intent: {intent}, User Input: {user_input}, Parameters: {parameters} ')
+
     if intent == "DailyMoodCheckIn":
         feeling = parameters.get("feeling")
+
+        #check to make sure the feeling is valid
+        print(f'Feeling: {feeling}')
 
         if feeling:
             # If entity exists, skip NLTK and use entity directly
             tag = feeling.lower()
+
+            print(f'The tag: {tag}')
+
             emotion = "positive" if tag in ["happy", "calm", "content"] else "negative"
+
+            print(f'The emotion: {emotion}')
 
             # Optional: log it with dummy compound score for uniformity
             log_mood(user_input, emotion, compound=0.0)

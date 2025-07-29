@@ -18,11 +18,11 @@ def init_db():
     conn.commit()
     conn.close()
 
-def log_mood(text, sentiment, score):
+def log_mood(text, sentiment, compound):
     conn = sqlite3.connect(DB_FILE)
     cursor = conn.cursor()
     cursor.execute("INSERT INTO logs (date, user_input, sentiment, score) VALUES (?, ?, ?, ?)",
-                   (datetime.date.today().isoformat(), text, sentiment, score))
+                   (datetime.date.today().isoformat(), text, sentiment, compound))
     conn.commit()
     conn.close()
 

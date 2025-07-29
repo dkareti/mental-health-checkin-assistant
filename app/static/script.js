@@ -26,7 +26,7 @@ async function sendMessage() {
     const botMsg = document.createElement("p");
     botMsg.className = "bot";
     const botLabel = document.createElement("b");
-    botLabel.textContent = "Wellness Assistant! ";
+    botLabel.textContent = "Wellness Assistant: ";
     botMsg.appendChild(botLabel);
     botMsg.appendChild(document.createTextNode(data.reply));  // No \ issues here
     chatBox.appendChild(botMsg);
