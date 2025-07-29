@@ -2,7 +2,9 @@
 <html>
   <head>
     <title>Mental Health Virtual Assistant</title>
-    <link rel="stylesheet" href="style.css">
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+      
   </head>
   <body>
     <h2>How are you feeling today?</h2>
@@ -12,7 +14,7 @@
         <button onclick="sendMessage()">Send</button>
       </div>
       
-      <script src="script.js"></script>
+      <script src="{{ url_for('static', filename='script.js') }}"></script>
 
       <div class="info-box">
         <h3>Find Relaxation Techniques with ChatGPT</h3>

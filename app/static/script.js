@@ -8,7 +8,7 @@ async function sendMessage() {
   input.value = "";
 
   // Display user's message
-  chatBox.innerHTML += `<p class='user'><b>You:</b> ${message}</p>`;
+  chatBox.innerHTML += `<p class='user'><b>Your Message:</b> ${message}</p>`;
 
   try {
     // Send message to the server (backend endpoint)
@@ -23,7 +23,13 @@ async function sendMessage() {
     const data = await response.json();
 
     // Display bot's reply
-    chatBox.innerHTML += `<p class='bot'><b>Bot:</b> ${data.reply}</p>`;
+    const botMsg = document.createElement("p");
+    botMsg.className = "bot";
+    const botLabel = document.createElement("b");
+    botLabel.textContent = "Wellness Assistant! ";
+    botMsg.appendChild(botLabel);
+    botMsg.appendChild(document.createTextNode(data.reply));  // No \ issues here
+    chatBox.appendChild(botMsg);
 
   } catch (error) {
     console.error("Error sending message:", error);
