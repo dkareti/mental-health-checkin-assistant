@@ -13,7 +13,7 @@
         
         <button onclick="sendMessage()" class="btn">Send</button>
       </div>
-      <button type="button" class="btn" onclick="document.getElementById('chat-box').innerHTML = ''">
+      <button type="button" class="btn" onclick="clearChat()">
           Clear Chat!
       </button>
       <script src="{{ url_for('static', filename='script.js') }}"></script>
@@ -21,7 +21,9 @@
       <div class="info-box">
         <h3>Find Relaxation Techniques with ChatGPT</h3>
 
-        <a href="https://chat.openai.com/" target="_blank" class="btn">Message ChatGPT</a>
+        <button class="btn" onclick="window.open('https://chat.openai.com/', '_blank')">
+          Message ChatGPT
+        </button>
         
         <p>Feeling stressed? You can ask ChatGPT to recommend relaxation methods
           like breathing exercises, guided meditations, or mindfulness practices. Just type in how you're feeling, and get personalized tips instantly.</p>

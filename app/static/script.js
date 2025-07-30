@@ -36,3 +36,7 @@ async function sendMessage() {
     chatBox.innerHTML += `<p class='bot'><b>Bot:</b> Sorry, something went wrong.</p>`;
   }
 }
+
+async function clearChat() {
+  chatBox.innerHTML = "";
+}
