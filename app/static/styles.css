@@ -10,6 +10,7 @@ body {
   margin: 2rem auto;
 }
 
+
 #chatBox {
   border: 1px solid blue;
   min-height: 300px;
@@ -54,8 +55,14 @@ body {
   display: block;
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-  color: black;
+  color: white;
   background-color: var(--navy);
+}
+
+.btn:hover {
+  transform: scale(1.01);
+  background-color: white;
+  color: var(--navy);
 }
 
 .btn:hover {

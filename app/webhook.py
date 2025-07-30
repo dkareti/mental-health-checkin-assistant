@@ -1,3 +1,6 @@
+import sys
+sys.stdout.reconfigure(line_buffering=True)
+
 from flask import Flask, request, jsonify, render_template
 import os
 from app.sentiment import analyze_sentiment
@@ -70,15 +73,20 @@ def webhook():
 
             if emotion == "positive":
                 response_text = f"I'm really glad to hear you're feeling {tag} today."
+                
             elif tag == "anxious":
                 response_text = "It sounds like you're feeling anxious. Would a calming exercise help? " \
                 "I provided a link to ChatGPT! Feel free to find calming exercises there!"
+                
             elif tag == "burned out":
                 response_text = "Feeling burned out is tough. Want to talk about what's draining you?" \
                 "I've included a link to ChatGPT below, so you can continue this conversation! "
+                
             else:
                 response_text = f"Thanks for sharing that you're feeling {tag}. I'm here to support you." \
                 "If you'd like to keep the conversation going, the link below directs you to ChatGPT!"
+                
+            return jsonify({"fulfillmentText": response_text})
         else:
             result = analyze_sentiment(user_input)
             emotion = result["emotion"]
@@ -89,14 +97,18 @@ def webhook():
 
             if emotion == "positive":
                 response_text = f"I'm really glad to hear you're feeling {tag} today."
+                
             elif emotion == "negative":
                 if tag == "anxious":
                     response_text = "It sounds like you're feeling anxious. Would a calming exercise help?"
+                    
                 elif tag == "burned out":
                     response_text = "Feeling burned out is tough. Want to talk about what's draining you?"
+                    
                 else:
                     response_text = "Thanks for sharing that. Sometimes it\’s hard to describe how we feel, and that’s okay. " \
                     "If you'd like to talk more or explore how you're feeling, ChatGPT is linked below to help."
+                    
                  
             else:
                 response_text = "Thanks for sharing that. Sometimes it\’s hard to describe how we feel, and that\’s okay."
@@ -107,7 +119,7 @@ def webhook():
         summary = get_weekly_summary()
         return jsonify({"fulfillmentText": summary})
 
-    return jsonify({"fulfillmentText": "I'm here whenever you're ready to check in."})
+    return jsonify({"fulfillmentText": "Tell me what your feeling? I'm here whenever you're ready. "})
 
 
 
