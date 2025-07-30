@@ -52,7 +52,8 @@ body {
 }
 
 .btn{
-  display: block;
+  
+  padding-left: 10px;
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   color: white;
@@ -60,13 +61,9 @@ body {
 }
 
 .btn:hover {
-  transform: scale(1.01);
-  background-color: white;
+  transform: scale(1.1);
+  background-color: wheat;
   color: var(--navy);
-}
-
-.btn:hover {
-  background-color: var(--cheery-color);
 }
 
 .btn:active {
