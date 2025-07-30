@@ -13,7 +13,9 @@
         
         <button onclick="sendMessage()" class="btn">Send</button>
       </div>
-      
+      <button type="button" class="btn" onclick="document.getElementById('chat-box').innerHTML = ''">
+          Clear Chat!
+      </button>
       <script src="{{ url_for('static', filename='script.js') }}"></script>
 
       <div class="info-box">
