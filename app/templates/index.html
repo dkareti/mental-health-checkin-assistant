@@ -8,11 +8,17 @@
   </head>
   <body>
     <h2>How are you feeling today?</h2>
+    
       <div id="chatBox">
         <input id="userInput" placeholder="Type your message...">
         
         <button onclick="sendMessage()" class="btn">Send</button>
+
+        <div id="messageHistory"></div>
       </div>
+
+      
+
       <button type="button" class="btn" onclick="clearChat()">
           Clear Chat!
       </button>

@@ -1,14 +1,16 @@
 async function sendMessage() {
   const input = document.getElementById("userInput");
-  const chatBox = document.getElementById("chatBox");
   const message = input.value;
+
+  // seperate the chat
+  const messageHist = document.getElementById("messageHistory");
 
   if (!message) return; // Don't send empty messages
 
   input.value = "";
 
   // Display user's message
-  chatBox.innerHTML += `<p class='user'><b>Your Message:</b> ${message}</p>`;
+  messageHist.innerHTML += `<p class='user'><b>Your Message:</b> ${message}</p>`;
 
   try {
     // Send message to the server (backend endpoint)
@@ -29,14 +31,18 @@ async function sendMessage() {
     botLabel.textContent = "Wellness Assistant: ";
     botMsg.appendChild(botLabel);
     botMsg.appendChild(document.createTextNode(data.reply));  // No \ issues here
-    chatBox.appendChild(botMsg);
+    messageHist.appendChild(botMsg);
 
   } catch (error) {
     console.error("Error sending message:", error);
-    chatBox.innerHTML += `<p class='bot'><b>Bot:</b> Sorry, something went wrong.</p>`;
+    messageHist.innerHTML += `<p class='bot'><b>Bot:</b> Sorry, something went wrong.</p>`;
   }
 }
 
 async function clearChat() {
-  chatBox.innerHTML = "";
+  const messageHist = document.getElementById("messageHistory");
+  messageHist.innerHTML = "";
 }
+
+window.sendMessage = sendMessage;
+window.clearChat = clearChat;
